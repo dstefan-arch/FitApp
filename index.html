@@ -254,5 +254,27 @@ react-dom/cjs/react-dom.production.min.js:
 */
 
 </script>
+<script>
+/* Bildschirm wachhalten, solange ein Training aktiv ist -> Timer bleibt sichtbar (iOS 16.4+, Chrome, ...). */
+(function(){
+  if(!("wakeLock" in navigator)) return;
+  var lock=null, want=false, busy=false;
+  function active(){ return !!document.querySelector(".livebar,.live-top"); }
+  function acquire(){
+    if(lock||busy||document.visibilityState!=="visible") return;
+    busy=true;
+    navigator.wakeLock.request("screen").then(function(l){
+      lock=l; busy=false;
+      l.addEventListener("release",function(){ lock=null; });
+    }).catch(function(){ busy=false; });
+  }
+  function release(){ if(lock){ try{lock.release();}catch(e){} lock=null; } }
+  function sync(){ want=active(); if(want){ acquire(); } else { release(); } }
+  document.addEventListener("visibilitychange",function(){ if(document.visibilityState==="visible" && want){ acquire(); } });
+  try{ new MutationObserver(sync).observe(document.body||document.documentElement,{subtree:true,childList:true}); }catch(e){}
+  sync();
+  setInterval(sync,3000);
+})();
+</script>
 </body>
 </html>
