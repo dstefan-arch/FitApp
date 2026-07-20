@@ -18,18 +18,16 @@ self.addEventListener("activate", function (e) {
   );
 });
 
+// Network-first: online immer die aktuelle Version (Updates sofort sichtbar), offline aus dem Cache.
 self.addEventListener("fetch", function (e) {
   if (e.request.method !== "GET") return;
   e.respondWith(
-    caches.match(e.request).then(function (cached) {
-      var net = fetch(e.request).then(function (res) {
-        if (res && res.status === 200 && res.type === "basic") {
-          var cp = res.clone();
-          caches.open(CACHE).then(function (c) { c.put(e.request, cp); });
-        }
-        return res;
-      }).catch(function () { return cached; });
-      return cached || net;
-    })
+    fetch(e.request).then(function (res) {
+      if (res && res.status === 200 && res.type === "basic") {
+        var cp = res.clone();
+        caches.open(CACHE).then(function (c) { c.put(e.request, cp); });
+      }
+      return res;
+    }).catch(function () { return caches.match(e.request); })
   );
 });
