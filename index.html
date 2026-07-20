@@ -11,7 +11,7 @@
 <link id="mf" rel="manifest"/>
 <link id="ati" rel="apple-touch-icon"/>
 <title>GVT Tracker</title>
-<style>html,body{margin:0;background:#EDEEE8;overscroll-behavior:none;}#root{min-height:100vh;}</style>
+<style>html,body{margin:0;background:#EDEEE8;overscroll-behavior:none;-webkit-font-smoothing:antialiased;}#root{min-height:100vh;min-height:100dvh;}</style>
 </head>
 <body>
 <div id="root"></div>
@@ -42,14 +42,14 @@ Error generating stack: `+s.message+`
   @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap');
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;}
   button,select,label{touch-action:manipulation;}
-  .root{min-height:100vh;background:${V};color:${_};font-family:'Inter',system-ui,sans-serif;-webkit-text-size-adjust:100%;overscroll-behavior:none;-webkit-user-select:none;user-select:none;}
+  .root{min-height:100vh;min-height:100dvh;background:${V};color:${_};font-family:'Inter',system-ui,sans-serif;-webkit-text-size-adjust:100%;overscroll-behavior:none;-webkit-user-select:none;user-select:none;}
   input,textarea{-webkit-user-select:text;user-select:text;}
   input:not([type=checkbox]),textarea,select{-webkit-appearance:none;appearance:none;border-radius:0;}
   .app{max-width:760px;margin:0 auto;padding-bottom:calc(132px + env(safe-area-inset-bottom));}
   .pad{padding:calc(env(safe-area-inset-top) + 16px) calc(env(safe-area-inset-right) + 14px) 24px calc(env(safe-area-inset-left) + 14px);background:
     linear-gradient(${At} 1px,transparent 1px) 0 0/100% 26px,
-    linear-gradient(90deg,${At} 1px,transparent 1px) 0 0/26px 100%,${V};min-height:calc(100vh - 132px);}
-  .masthead{background:${_};color:${V};padding:14px 16px;border:2px solid ${_};margin-bottom:16px;}
+    linear-gradient(90deg,${At} 1px,transparent 1px) 0 0/26px 100%,${V};min-height:calc(100vh - 132px);min-height:calc(100dvh - 132px);}
+  .masthead{background:${_};color:${V};padding:calc(env(safe-area-inset-top) + 14px) 16px 14px;border:2px solid ${_};margin-bottom:16px;}
   .masthead h1{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:.04em;font-size:24px;text-transform:uppercase;line-height:.95;}
   .masthead h1 span{color:${ge};}
   .mh-sub{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.65;margin-top:5px;}
